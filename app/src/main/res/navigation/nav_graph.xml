@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home_dest">
+
+    <fragment
+        android:id="@+id/home_dest"
+        android:name="com.hegunhee.baakcoding.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"
+        >
+        <action
+            android:id="@+id/home_to_add"
+            app:destination="@id/add_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/add_dest"
+        android:name="com.hegunhee.baakcoding.ui.add.AddFragment"
+        android:label="AddFragment"
+        tools:layout="@layout/fragment_add"/>
+</navigation>
