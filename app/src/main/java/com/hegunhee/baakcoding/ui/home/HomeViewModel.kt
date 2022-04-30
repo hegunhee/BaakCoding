@@ -15,6 +15,7 @@ class HomeViewModel @Inject constructor(private val repository: DefaultRepositor
 
     val memoList = MutableLiveData<List<Memo>>(listOf())
     var list = listOf<Memo>()
+    var query : String = ""
 
 
     fun initList() = viewModelScope.launch{
@@ -25,7 +26,7 @@ class HomeViewModel @Inject constructor(private val repository: DefaultRepositor
         }
     }
 
-    private fun setList(query : String = "") = viewModelScope.launch{
+    private fun setList() = viewModelScope.launch{
         list = if(query == ""){
             repository.getAll()
         }else{
@@ -36,10 +37,17 @@ class HomeViewModel @Inject constructor(private val repository: DefaultRepositor
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         if (s.isEmpty()) {
+            query = ""
             setList()
         } else {
-            setList(s.toString())
+            query = s.toString()
+            setList()
         }
+    }
+
+    fun deleteMemo(memo : Memo) = viewModelScope.launch {
+        repository.delete(memo)
+        setList()
     }
 
 }
