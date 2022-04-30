@@ -4,14 +4,17 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.hegunhee.baakcoding.db.Memo
+import com.hegunhee.baakcoding.model.DefaultRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
-class AddViewModel @Inject constructor() : ViewModel() {
+class AddViewModel @Inject constructor(private val repository : DefaultRepository) : ViewModel() {
 
     private var _addButtonVisible = MutableLiveData<Boolean>(false)
     val addButtonVisible: LiveData<Boolean>
@@ -22,6 +25,8 @@ class AddViewModel @Inject constructor() : ViewModel() {
         get() = _memoTextLength
 
     var passwordText = MutableLiveData<String>("")
+
+    var addState = MutableLiveData<AddState>(AddState.Uninitalized)
 
     var memoText: String = ""
 
@@ -38,7 +43,7 @@ class AddViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun onClickButton() {
+    fun onClickButton()  = viewModelScope.launch{
         val time: String = LocalDateTime.now().plusHours(9)
             .run { this.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) }
         val secret = passwordText.value?.run {
@@ -53,7 +58,8 @@ class AddViewModel @Inject constructor() : ViewModel() {
         }
         Memo(memoText,time,secret,password.toString()).run {
             Log.d("ButtonTest",this.toString())
+            repository.insert(this)
+            addState.postValue(AddState.Add)
         }
-
     }
 }

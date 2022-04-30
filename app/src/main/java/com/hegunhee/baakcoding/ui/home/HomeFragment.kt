@@ -2,6 +2,7 @@ package com.hegunhee.baakcoding.ui.home
 
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,14 +19,18 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val viewModel : HomeViewModel by viewModels()
+    private lateinit var homeAdapter : HomeAdpater
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        homeAdapter = HomeAdpater()
         binding.apply {
             viewmodel= viewModel
             lifecycleOwner = this@HomeFragment
+            recyclerView.adapter = homeAdapter
         }
         initViews()
+        viewModel.initList()
     }
 
     private fun initViews() = with(binding){
@@ -33,4 +38,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             findNavController().navigate(R.id.home_to_add)
         }
     }
+
+
 }
