@@ -27,9 +27,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         onMemoClick = { memo ->
             if (memo.secret) {
                 Toast.makeText(requireContext(), "secretMemo", Toast.LENGTH_SHORT).show()
-
+                showMemoDialog(memo)
             } else {
                 Toast.makeText(requireContext(), "normalMemo", Toast.LENGTH_SHORT).show()
+                val bundle = Bundle().apply {
+                    putParcelable("Memo", memo)
+                }
+                findNavController().navigate(R.id.home_to_detail, bundle)
             }
         },
         onDeleteClick = { memo ->
@@ -57,8 +61,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    private fun showMemoDialog() {
+    private fun showMemoDialog(memo: Memo) {
         val editText: EditText = EditText(requireContext())
+        AlertDialog.Builder(requireContext())
+            .setTitle("비밀번호를 입력해주세요")
+            .setView(editText)
+            .setPositiveButton("열기",
+                DialogInterface.OnClickListener { _, _ ->
+                    val text = editText.text.toString()
+                    if (text == memo.secretPassWord) {
+                        val bundle = Bundle().apply {
+                            putParcelable("Memo", memo)
+                        }
+                        findNavController().navigate(R.id.home_to_detail, bundle)
+                    } else {
+                        Toast.makeText(requireContext(), "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            ).setNegativeButton("취소",
+                DialogInterface.OnClickListener { _, _ ->
+
+                }
+            ).show()
     }
 
     private fun showDeleteDialog(memo: Memo) {
@@ -71,7 +95,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     val text = editText.text.toString()
                     if (text == memo.secretPassWord) {
                         viewModel.deleteMemo(memo)
-                        Toast.makeText(requireContext(), "성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT)
+                            .show()
                     } else {
                         Toast.makeText(requireContext(), "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show()
                     }

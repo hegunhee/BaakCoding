@@ -19,11 +19,12 @@ class HomeViewModel @Inject constructor(private val repository: DefaultRepositor
 
 
     fun initList() = viewModelScope.launch{
-        list = repository.getAll()
-        memoList.postValue(list)
-        repository.getAll().run {
-            Log.d("TestItems",this.toString())
-        }
+        setList()
+//        list = repository.getAll()
+//        memoList.postValue(list)
+//        repository.getAll().run {
+//            Log.d("TestItems",this.toString())
+//        }
     }
 
     private fun setList() = viewModelScope.launch{
