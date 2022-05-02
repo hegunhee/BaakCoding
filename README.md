@@ -22,5 +22,4 @@
   https://github.com/hegunhee/BaakCoding/issues/2  
   
 ## 소감  
-이틀동안 프로젝트를 준비하면서 나도 할 수 있구나 라는 자신감과 성취감이 생겼습니다. 오랜만에 즐겁게 코딩했던것같습니다.  
-설계를 하고 순서를 나누고 작성하고... Navigation이랑 Hilt를 처음 사용해봤고 배웠습니다. 
+[빡코딩콘 후기](https://hegunhee.tistory.com/26)
