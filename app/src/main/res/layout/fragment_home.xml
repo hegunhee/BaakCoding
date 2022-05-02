@@ -4,44 +4,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.hegunhee.baakcoding.ui.home.HomeViewModel" />
 
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:text="간단 메모장"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:hint="검색"
+            android:onTextChanged="@{viewmodel.onTextChanged}"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onTextChanged="@{viewmodel.onTextChanged}"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
+            bindData="@{viewmodel.memoList}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            bindData="@{viewmodel.memoList}"
             app:layout_constraintTop_toBottomOf="@id/editText" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addMemoButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_add"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

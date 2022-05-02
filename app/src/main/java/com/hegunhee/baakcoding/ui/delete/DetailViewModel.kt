@@ -24,7 +24,7 @@ class DetailViewModel @Inject constructor(
     val detailState = MutableLiveData<DetailState>(DetailState.Uninitalized)
     fun initViewModel(memo : Memo) {
         this.memo = memo
-        _memoTextLength.value = memo.data.length.toString()
+        _memoTextLength.value = "글자수 : ${memo.data.length.toString()}"
         if(memo.secret){
             passwordText.value = memo.secretPassWord
         }
@@ -70,7 +70,6 @@ class DetailViewModel @Inject constructor(
             0
         }
         memo.copy(data = memoText,secret = secret,secretPassWord =  password.toString()).run {
-            Log.d("ButtonTest",this.toString())
             repository.insert(this)
             detailState.postValue(DetailState.Detail)
         }

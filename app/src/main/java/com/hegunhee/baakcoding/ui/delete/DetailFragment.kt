@@ -2,6 +2,7 @@ package com.hegunhee.baakcoding.ui.delete
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.hegunhee.baakcoding.R
@@ -32,6 +33,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         when(it){
             DetailState.Uninitalized ->{}
             DetailState.Detail -> {
+                Toast.makeText(requireContext(), "메모가 수정되었습니다.", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             }
         }

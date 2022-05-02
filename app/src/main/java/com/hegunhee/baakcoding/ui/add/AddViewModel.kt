@@ -16,9 +16,9 @@ import javax.inject.Inject
 @HiltViewModel
 class AddViewModel @Inject constructor(private val repository : DefaultRepository) : ViewModel() {
 
-    private var _addButtonVisible = MutableLiveData<Boolean>(false)
-    val addButtonVisible: LiveData<Boolean>
-        get() = _addButtonVisible
+    private var _addButtonClickable = MutableLiveData<Boolean>(false)
+    val addButtonClickable: LiveData<Boolean>
+        get() = _addButtonClickable
 
     private var _memoTextLength = MutableLiveData<String>()
     val memoTextLength: LiveData<String>
@@ -33,19 +33,18 @@ class AddViewModel @Inject constructor(private val repository : DefaultRepositor
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         if (s.isEmpty()) {
-            _addButtonVisible.value = false
+            _addButtonClickable.value = false
             _memoTextLength.value = "글자수 : 0"
             memoText = ""
         } else {
-            _addButtonVisible.value = true
+            _addButtonClickable.value = true
             memoText = s.toString()
             _memoTextLength.value = "글자수 : ${s.length}"
         }
     }
 
     fun onClickButton()  = viewModelScope.launch{
-        val time: String = LocalDateTime.now().plusHours(9)
-            .run { this.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) }
+        val time: String = LocalDateTime.now().plusHours(9).run { this.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) }
         val secret = passwordText.value?.run {
             this != ""
         } ?: kotlin.run {
@@ -57,7 +56,6 @@ class AddViewModel @Inject constructor(private val repository : DefaultRepositor
             0
         }
         Memo(memoText,time,secret,password.toString()).run {
-            Log.d("ButtonTest",this.toString())
             repository.insert(this)
             addState.postValue(AddState.Add)
         }

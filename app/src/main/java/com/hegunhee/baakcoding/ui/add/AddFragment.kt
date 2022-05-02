@@ -2,6 +2,7 @@ package com.hegunhee.baakcoding.ui.add
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.hegunhee.baakcoding.R
@@ -34,6 +35,7 @@ class AddFragment : BaseFragment<FragmentAddBinding>(R.layout.fragment_add) {
         when(it){
             AddState.Uninitalized -> {}
             AddState.Add -> {
+                Toast.makeText(requireContext(), "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             }
 
