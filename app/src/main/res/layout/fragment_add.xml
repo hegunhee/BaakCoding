@@ -76,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:text="@{viewmodel.memoTextLength.toString()}"
+            android:text="@{viewmodel.memoTextLength}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

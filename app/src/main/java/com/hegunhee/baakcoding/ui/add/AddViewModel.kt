@@ -1,10 +1,7 @@
 package com.hegunhee.baakcoding.ui.add
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.hegunhee.baakcoding.db.Memo
 import com.hegunhee.baakcoding.model.DefaultRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,9 +17,11 @@ class AddViewModel @Inject constructor(private val repository : DefaultRepositor
     val addButtonClickable: LiveData<Boolean>
         get() = _addButtonClickable
 
-    private var _memoTextLength = MutableLiveData<String>()
-    val memoTextLength: LiveData<String>
-        get() = _memoTextLength
+
+    private var memoLength = MutableLiveData<Int>()
+    val memoTextLength : LiveData<String> = Transformations.map(memoLength){
+        "글자수 : $it"
+    }
 
     var passwordText = MutableLiveData<String>("")
 
@@ -34,12 +33,12 @@ class AddViewModel @Inject constructor(private val repository : DefaultRepositor
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         if (s.isEmpty()) {
             _addButtonClickable.value = false
-            _memoTextLength.value = "글자수 : 0"
+            memoLength.value = 0
             memoText = ""
         } else {
             _addButtonClickable.value = true
             memoText = s.toString()
-            _memoTextLength.value = "글자수 : ${s.length}"
+            memoLength.value = s.length
         }
     }
 
