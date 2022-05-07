@@ -18,7 +18,7 @@ class AddViewModel @Inject constructor(private val repository : DefaultRepositor
         get() = _addButtonClickable
 
 
-    private var memoLength = MutableLiveData<Int>()
+    private var memoLength = MutableLiveData<Int>(0)
     val memoTextLength : LiveData<String> = Transformations.map(memoLength){
         "글자수 : $it"
     }

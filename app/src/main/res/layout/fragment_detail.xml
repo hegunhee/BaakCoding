@@ -15,68 +15,72 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/ic_back"
-        android:backgroundTint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_back"
+            android:backgroundTint="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="100dp"
-        android:backgroundTint="@color/red"
-        android:layout_height="50dp"
-        android:onClick="@{() ->viewmodel.onClickButton()}"
-        android:clickable="@{viewmodel.addButtonVisible}"
-        android:text="수정"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/red"
+            android:clickable="@{viewmodel.addButtonVisible}"
+            android:onClick="@{() ->viewmodel.onClickButton()}"
+            android:text="수정"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/password_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="비밀번호 : "
-        android:textSize="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/backButton" />
+        <TextView
+            android:id="@+id/password_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 : "
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/backButton" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:inputType="number"
-        android:hint="미 기재시 일반 메모입니다."
-        android:text="@={viewmodel.passwordText}"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/password_textview"
-        app:layout_constraintTop_toTopOf="@id/password_textview" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:hint="미 기재시 일반 메모입니다."
+            android:inputType="number"
+            android:text="@={viewmodel.passwordText}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/password_textview"
+            app:layout_constraintTop_toTopOf="@id/password_textview" />
 
-    <EditText
-        android:id="@+id/memoText"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="top"
-        app:layout_constraintBottom_toTopOf="@id/textlength"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:onTextChanged="@{viewmodel.onTextChanged}"
-        app:layout_constraintTop_toBottomOf="@id/password_textview" />
 
-    <TextView
-        android:id="@+id/textlength"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/memoText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="@{viewmodel.memoTextLength.toString()}"
-        />
+        <TextView
+            android:id="@+id/textlength"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewmodel.memoTextLength.toString()}"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/memoText"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/password" />
+
+
+        <EditText
+            android:id="@+id/memoText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="top"
+            android:onTextChanged="@{viewmodel.onTextChanged}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textlength" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

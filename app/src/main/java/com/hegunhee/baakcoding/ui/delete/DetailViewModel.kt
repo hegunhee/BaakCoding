@@ -28,13 +28,14 @@ class DetailViewModel @Inject constructor(
         memoText = memo.data
     }
 
-    private var _addButtonVisible = MutableLiveData<Boolean>(true)
-    val addButtonVisible: LiveData<Boolean>
-        get() = _addButtonVisible
 
     private var memoLength = MutableLiveData<Int>()
     val memoTextLength : LiveData<String> = Transformations.map(memoLength){
         "글자수 : $it"
+    }
+
+    val addButtonVisible: LiveData<Boolean> = Transformations.map(memoLength){
+        it != 0
     }
 
     var passwordText = MutableLiveData<String>("")
@@ -44,11 +45,9 @@ class DetailViewModel @Inject constructor(
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         if (s.isEmpty()) {
-            _addButtonVisible.value = false
             memoLength.value =  0
             memoText = ""
         } else {
-            _addButtonVisible.value = true
             memoText = s.toString()
             memoLength.value = s.length
         }
